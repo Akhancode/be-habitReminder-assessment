@@ -2,11 +2,12 @@ const express = require("express");
 const router = express();
 
 const testRoute = require("./test.route");
-const reviewRoute = require("./reviews.route");
+const authRoute = require("./auth.route");
+const authMiddleware = require("../middleware/authMiddlware");
 
 
-router.use("/api",testRoute);
-router.use("/api/reviews",reviewRoute);
+router.use("/auth",authRoute);
+router.use("/api",authMiddleware,testRoute);
 
 
 
