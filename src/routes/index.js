@@ -3,10 +3,12 @@ const router = express();
 
 const testRoute = require("./test.route");
 const authRoute = require("./auth.route");
+const habitRoute = require("./habit.route");
 const authMiddleware = require("../middleware/authMiddlware");
 
 
 router.use("/auth",authRoute);
+router.use("/api/habit",authMiddleware,habitRoute);
 router.use("/api",authMiddleware,testRoute);
 
 
