@@ -6,6 +6,7 @@ const authRoute = require("./auth.route");
 const habitRoute = require("./habit.route");
 const streakRoute = require("./streak.route");
 const progressRoute = require("./progress.route");
+const historyRoute = require("./history.route");
 const authMiddleware = require("../middleware/authMiddlware");
 
 
@@ -13,6 +14,7 @@ router.use("/auth",authRoute);
 router.use("/api/habit",authMiddleware,habitRoute);
 router.use("/api/streak",authMiddleware,streakRoute);
 router.use("/api/progress",authMiddleware,progressRoute);
+router.use("/api/history",authMiddleware,historyRoute);
 router.use("/api",authMiddleware,testRoute);
 
 
