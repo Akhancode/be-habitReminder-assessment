@@ -23,6 +23,7 @@ const allowedOrigins = [
 app.use(
   cors((req, callback) => {
     const origin = req.header("Origin");
+    console.log(origin)
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
