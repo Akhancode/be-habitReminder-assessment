@@ -23,13 +23,15 @@ const corsOptions = {
   credentials: true,
   origin: allowedOrigins, // Whitelist the domains you want to allow
 };
- // Get the Origin header from the request
- app.use((req, res, next) => {
-  const origin = req.headers.origin; // Get the Origin header from the request
-  console.log('Request Origin:', origin); // Log the origin
-  next();
-});
-app.use(cors(corsOptions));
+// Get the Origin header from the request
+app.use(
+  cors({
+    origin: "*", // Allows all origins
+    credentials: true, // Allow cookies, authorization headers, etc.
+  })
+);
+
+// app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
