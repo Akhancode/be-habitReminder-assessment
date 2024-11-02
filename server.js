@@ -14,8 +14,23 @@ const PORT = process.env.PORT;
 
 const app = express();
 
-// Use cors for all routes
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173", // React app in development
+  "http://gomarble-assessment.centralindia.cloudapp.azure.com",
+];
+
+// Use CORS middleware
+app.use(
+  cors((req, callback) => {
+    const origin = req.header("Origin");
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      // If the origin is not allowed, deny it
+      callback(new Error("Not allowed by CORS"));
+    }
+  })
+);
 
 app.use(bodyParser.json());
 
