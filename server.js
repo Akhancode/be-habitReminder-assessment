@@ -23,7 +23,8 @@ const corsOptions = {
   credentials: true,
   origin: allowedOrigins, // Whitelist the domains you want to allow
 };
-console.log(window.location.origin);
+ // Get the Origin header from the request
+console.log("Request Origin:", req.headers.origin);
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
