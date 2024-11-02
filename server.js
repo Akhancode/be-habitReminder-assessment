@@ -19,19 +19,12 @@ const allowedOrigins = [
   "http://gomarble-assessment.centralindia.cloudapp.azure.com",
 ];
 
-// Use CORS middleware
-app.use(
-  cors((req, callback) => {
-    const origin = req.header("Origin");
-    console.log(origin)
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      // If the origin is not allowed, deny it
-      callback(new Error("Not allowed by CORS"));
-    }
-  })
-);
+const corsOptions = {
+  credentials: true,
+  origin: allowedOrigins, // Whitelist the domains you want to allow
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
