@@ -5,6 +5,7 @@ const streakSchema = new mongoose.Schema({
   habit: { type: mongoose.Schema.Types.ObjectId, ref: "Habit", required: true },
   consecutiveDays: { type: Number, default: 0 },
   lastCompletedDate: { type: Date },
+  points: { type: Number, default: 0 },           
   badges: { type: [String], default: [] }, // Store badge names
 });
 

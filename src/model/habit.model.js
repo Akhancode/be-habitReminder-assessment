@@ -5,10 +5,8 @@ const habitSchema = new mongoose.Schema({
     category: { type: String, required: true, enum: ["Health", "Work", "Personal Development"] },
     frequency: { type: String, required: true, enum: ["daily", "weekly"] },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    reminder: {
-        time: { type: String }, // Store as HH:mm format (e.g., "09:30")
-        enabled: { type: Boolean, default: false } // Flag to enable/disable reminder
-    }
+    reminder: { type: String }, // Store as HH:mm format (e.g., "09:30")
+  
 });
 
 module.exports = mongoose.model("Habit", habitSchema);

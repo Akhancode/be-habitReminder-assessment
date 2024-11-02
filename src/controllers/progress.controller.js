@@ -28,17 +28,46 @@ exports.getProgress = async (req, res, next) => {
           preserveNullAndEmptyArrays: true,
         },
       },
+      {
+        $lookup: {
+          from: "completionhistories",
+          let: {
+            habitId: "$_id",
+            userId: "$user",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    {
+                      $eq: ["$habit", "$$habitId"],
+                    },
+                    {
+                      $eq: ["$user", "$$userId"],
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+          as: "histories",
+        },
+      },
     ]);
-  
+
     // Calculate progress for each habit
     const habitProgress = habits.map((habit) => {
       // const totalCompletions = habit.completionHistory.length;
-      const streak = habit.streak.consecutiveDays;
+      const streakCount = habit?.streak?.consecutiveDays;
       // const completionPercentage = calculateCompletionPercentage(habit);
       return {
         title: habit.title,
+        _id:habit._id,
         category: habit.category,
-        streak,
+        streakCount,
+        streak: habit.streak,
+        histories:habit.histories
         // completionPercentage,
         // completionHistory: habit.completionHistory,
       };
