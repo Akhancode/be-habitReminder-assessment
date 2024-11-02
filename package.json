@@ -2,10 +2,10 @@
   "name": "GoMarble Assessment",
   "version": "1.0.0",
   "description": "GoMarble Assessment",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "18.17.1"
