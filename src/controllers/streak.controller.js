@@ -59,7 +59,7 @@ exports.completeHabit = async (req, res, next) => {
       // Update streak count and last completed date
       streak.consecutiveDays = isConsecutive ? streak.consecutiveDays + 1 : 1;
 
-      streak.lastCompletedDate = today.toISOString();
+      streak.lastCompletedDate = moment().startOf('day').toISOString();
       streak.points = streak.points + 1;
     
       for (const milestone of milestones) {
