@@ -35,7 +35,7 @@ exports.completeHabit = async (req, res, next) => {
         habit: habitId,
         consecutiveDays: 1,
         points: 1,
-        lastCompletedDate: new Date(),
+        lastCompletedDate: moment().startOf('day').toISOString(),
       });
     } else {
       // Check and update the streak based on the last completed date
@@ -59,10 +59,9 @@ exports.completeHabit = async (req, res, next) => {
       // Update streak count and last completed date
       streak.consecutiveDays = isConsecutive ? streak.consecutiveDays + 1 : 1;
 
-      streak.lastCompletedDate = today.toDate();
-      console.log(streak);
+      streak.lastCompletedDate = today.toISOString();
       streak.points = streak.points + 1;
-      console.log(streak);
+    
       for (const milestone of milestones) {
         if (streak.consecutiveDays === milestone.days) {
           // Award points and badge if not already awarded
