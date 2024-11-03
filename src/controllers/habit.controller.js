@@ -85,7 +85,7 @@ exports.getHabitWithFullDetails = async (req, res, next) => {
       {
         $unwind: {
           path: "$streak",
-          preserveNullAndEmptyArrays: true
+          preserveNullAndEmptyArrays: true,
         },
       },
       {
@@ -116,7 +116,7 @@ exports.getHabitWithFullDetails = async (req, res, next) => {
       },
     ]);
     if (!habit) throw new CustomError("habit not Found !", 404);
-    res.json(habit[0]||{});
+    res.json(habit[0] || {});
   } catch (error) {
     next(error);
   }
@@ -136,7 +136,7 @@ exports.getHabitsWithStreak = async (req, res, next) => {
     const habits = await Habit.aggregate([
       {
         $match: {
-          user: mongoose.Types.ObjectId(req.user.id),
+          user: mongoose.Types.ObjectId(req.user.id)
         },
       },
       {
@@ -151,6 +151,32 @@ exports.getHabitsWithStreak = async (req, res, next) => {
         $unwind: {
           path: "$streak",
           preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "completionhistories",
+          let: {
+            habitId: "$_id",
+            userId: "$user",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    {
+                      $eq: ["$habit", "$$habitId"],
+                    },
+                    {
+                      $eq: ["$user", "$$userId"],
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+          as: "histories",
         },
       },
     ]);

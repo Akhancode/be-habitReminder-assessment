@@ -5,7 +5,7 @@ const moment = require("moment");
 
 // Mark a habit as completed for today
 exports.completeHabit = async (req, res, next) => {
-  const { habitId } = req.body; // Pass the habit ID in the request body
+  const { habitId  } = req.body; // Pass the habit ID in the request body
   const userId = req.user.id;
   const today = moment().startOf("day");
   const milestones = [
@@ -20,10 +20,13 @@ exports.completeHabit = async (req, res, next) => {
 
   try {
     // Find or create a streak for this user and habit
-    const newCompletion = await completionHistoryModel.create({
+    let createdAt = req.body.createdAt
+    let historyDataObject = {
       habit: habitId,
       user: userId,
-    });
+      createdAt
+    };
+    const newCompletion = await completionHistoryModel.create(historyDataObject);
     let streak = await Streak.findOne({ user: userId, habit: habitId });
 
     if (!streak) {
