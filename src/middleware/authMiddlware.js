@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { CustomError } = require("../utils/errors/error");
 
 const authMiddleware = (req, res, next) => {
     const token = req.header("Authorization");
@@ -9,7 +10,8 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-       next(error)
+        console.log(new CustomError(error))
+       next(new CustomError("invalid token",400))
     }
 };
 
