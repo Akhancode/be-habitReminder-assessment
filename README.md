@@ -1,5 +1,9 @@
 # Habit Tracker Backend Assessment
 
+## Live Demo (Deployed)
+Check out the deployed app here: [Habit Tracker Live](http://gomarble-assessment.centralindia.cloudapp.azure.com)
+
+
 ## Overview
 The Personal Habit Tracker app helps users build and maintain daily habits by allowing them to set goals, track progress with streaks, earn rewards, and visualize their growth. With MongoDB for data storage and a RESTful API, users can manage habits, view charts, and set reminders to stay motivated in achieving their goals.
 
